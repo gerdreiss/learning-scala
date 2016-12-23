@@ -1,8 +1,5 @@
 package com.jscriptive.scala.third.chapter23
 
-/**
-  * Created by igor on 23.12.16.
-  */
 object Queens {
 
   case class Pos(row: Int, col: Int)
