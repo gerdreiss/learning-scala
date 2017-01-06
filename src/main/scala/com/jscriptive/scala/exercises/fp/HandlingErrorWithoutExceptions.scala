@@ -2,7 +2,7 @@ package com.jscriptive.scala.exercises.fp
 
 object HandlingErrorWithoutExceptions {
 
-  case class Employee(name: String, department: String, manager: Option[String])
+  case class Employee(name: String, dept: String, manager: Option[String])
 
   def map2[A, B, C, E, EE >: E](a: Either[EE, A], b: Either[EE, B])(f: (A, B) => C): Either[EE, C] =
     for {
@@ -17,7 +17,7 @@ object HandlingErrorWithoutExceptions {
   }
 
   def employeesShareDepartment(employeeA: Employee, employeeB: Employee): Boolean =
-    employeeA.department == employeeB.department
+    employeeA.dept == employeeB.dept
 
   def main(args: Array[String]): Unit = {
     println(map2(lookupByNameViaEither("Joe"), lookupByNameViaEither("Mary"))(employeesShareDepartment))
