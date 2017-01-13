@@ -1,7 +1,5 @@
 package com.jscriptive.scala.fp.chapter1
 
-import scala.collection.immutable.Seq
-
 class Coffee(val flavor: String = "espresso", val price: Int = 500 /* cents */)
 
 class CreditCard(val number: String) {
@@ -40,7 +38,7 @@ class CafeWithoutSideEffects {
 
   def buyCoffees(cc: CreditCard, n: Int): (List[Coffee], Charge) = {
     val purchases: List[(Coffee, Charge)] = List.fill(n)(buyCoffee(cc))
-    val (coffees: Seq[Coffee], charges: Seq[Charge]) = purchases.unzip
+    val (coffees: List[Coffee], charges: List[Charge]) = purchases.unzip
     (coffees, charges.reduce(_ combine _))
   }
 
