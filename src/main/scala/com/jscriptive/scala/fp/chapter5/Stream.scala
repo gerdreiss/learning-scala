@@ -66,6 +66,43 @@ sealed trait Stream[+A] {
     case Cons(h, t) if p(h()) => cons(h(), t() takeWhile p)
     case _ => empty
   }
+
+  def exists(p: A => Boolean): Boolean = this match {
+    case Cons(h, t) => p(h()) || t().exists(p)
+    case _ => false
+  }
+
+  def exists2(p: A => Boolean): Boolean = {
+    foldRight(false)((a, b) => p(a) || b)
+  }
+
+  def foldRight[B](z: => B)(f: (A, => B) => B): B = this match {
+    case Cons(h, t) => f(h(), t().foldRight(z)(f))
+    case _ => z
+  }
+
+  def forAll(p: A => Boolean): Boolean = {
+    foldRight(true)((a, b) => p(a) && b)
+  }
+
+  def takeWhile_folded(p: A => Boolean): Stream[A] = {
+    foldRight(empty[A])((h, t) => if (p(h)) cons(h, t) else empty)
+  }
+
+  def headOption_folded: Option[A] =
+    foldRight(None: Option[A])((h, _) => Some(h))
+
+  def map_folded[B](f: A => B): Stream[B] =
+    foldRight(empty[B])((h, t) => cons(f(h), t))
+
+  def filter_folded(f: A => Boolean): Stream[A] =
+    foldRight(empty[A])((h, t) => if (f(h)) cons(h, t) else t)
+
+  def append_folded[B >: A](s: => Stream[B]): Stream[B] =
+    foldRight(s)((h, t) => cons(h, t))
+
+  def flatMap_folded[B](f: A => Stream[B]): Stream[B] =
+    foldRight(empty[B])((h, t) => f(h) append_folded t)
 }
 
 case object Empty extends Stream[Nothing]
