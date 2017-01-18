@@ -103,6 +103,18 @@ sealed trait Stream[+A] {
 
   def flatMap_folded[B](f: A => Stream[B]): Stream[B] =
     foldRight(empty[B])((h, t) => f(h) append_folded t)
+
+  def constant[A](a: A): Stream[A] =
+    cons(a, constant(a))
+
+  def from(n: Int): Stream[Int] =
+    cons(n, from(n + 1))
+
+  def fibs(): Stream[Int] = {
+    def loop(prev: Int, curr: Int): Stream[Int] =
+      cons(prev, loop(curr, prev + curr))
+    loop(0, 1)
+  }
 }
 
 case object Empty extends Stream[Nothing]
