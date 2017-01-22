@@ -1,5 +1,7 @@
 package com.jscriptive.scala.examples.chapter2
 
+import scala.language.postfixOps
+
 object QuickSort {
 
   def isort(xs: Array[Int]): Unit = {
