@@ -21,6 +21,11 @@ object Nonblocking {
       def call: Unit = r
     })
 
+  def choice[A](cond: Par[Boolean])(t: Par[A], f: Par[A]): Par[A] =
+    es =>
+      if (run(es)(cond).booleanValue()) t(es)
+      else f(es)
+
   def map2[A, B, C](p1: Par[A], p2: Par[B])(f: (A, B) => C): Par[C] =
     es => (k: (C) => Unit) => {
       var ar: Option[A] = None
