@@ -11,11 +11,15 @@ libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-xml" % "1.0.6",
   "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
   "org.scala-lang.modules" %% "scala-swing" % "2.0.0-M2",
+  "com.github.mpilquist" %% "simulacrum" % "0.10.0",
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
 
-//libraryDependencies ++= Seq(
+addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0"
+  cross CrossVersion.full)
+
+  //libraryDependencies ++= Seq(
 //  "org.specs2" %% "specs2-core" % "3.8.5" % "test"
 //)
 
