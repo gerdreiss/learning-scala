@@ -15,6 +15,7 @@ libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-core" % "7.2.12",
   "org.scalaz" %% "scalaz-concurrent" % "7.2.12",
   "com.typesafe.akka" %% "akka-actor" % "2.5.1",
+  "org.typelevel" %% "cats" % "0.9.0",
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
