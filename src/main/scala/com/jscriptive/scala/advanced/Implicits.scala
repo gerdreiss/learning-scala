@@ -1,5 +1,7 @@
 package com.jscriptive.scala.advanced
 
+import scala.language.implicitConversions
+
 object Implicits extends App {
 
   //def sayHello1(implicit name: String): String = s"Hello $name"
