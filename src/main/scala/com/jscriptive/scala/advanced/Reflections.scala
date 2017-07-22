@@ -28,7 +28,7 @@ object Reflections extends App {
   println(mp)
 
   val purchase = Purchase("Jeff Lebowski", 23819, shipped = false)
-  val shippingTermSymb: TermSymbol = typeOf[Purchase].decl(termNames("shipped")).asTerm
+  val shippingTermSymb: TermSymbol = typeOf[Purchase].decl(TermName("shipped")).asTerm
   val im: InstanceMirror = m.reflect(purchase)
   val shippingFieldMirror = im.reflectField(shippingTermSymb)
   println(shippingFieldMirror.get)
