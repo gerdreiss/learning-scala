@@ -1,6 +1,8 @@
 package com.jscriptive.scala.advanced
 
-object ExistencialTypes extends App {
+import scala.language.existentials
+
+object ExistentialTypes extends App {
 
   def printContents(list: List[_]): Unit = list foreach println
 

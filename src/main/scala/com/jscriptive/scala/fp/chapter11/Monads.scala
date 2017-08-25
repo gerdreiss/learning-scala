@@ -1,5 +1,7 @@
 package com.jscriptive.scala.fp.chapter11
 
+import scala.language.higherKinds
+
 object Monads {
 
   trait Functor[F[_]] {
