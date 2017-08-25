@@ -5,4 +5,6 @@
 - Scala by Example by Martin Odersky
 - Functional Programming in Scala by Paul Chiusano and Runar Bjarnason
 - Various blog entries and tutorials
+- Cats
+- Scalaz
 

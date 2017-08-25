@@ -1,7 +1,7 @@
 package com.jscriptive.scala.scalaz
 
-import scalaz.Scalaz._
 import scalaz._
+import Scalaz._
 
 object Disjunctions extends App {
 
