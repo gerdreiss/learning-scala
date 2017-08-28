@@ -1,7 +1,7 @@
-package scalaz
+package scalaz.misc
 
+import scalaz.Scalaz._
 import scalaz._
-import Scalaz._
 
 object Disjunctions extends App {
 

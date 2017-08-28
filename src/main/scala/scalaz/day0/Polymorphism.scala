@@ -1,4 +1,4 @@
-package scalaz
+package scalaz.day0
 
 /**
  * Created by grei on 25.08.2017

@@ -1,4 +1,4 @@
-package scalaz
+package scalaz.day0
 
 import scala.language.{higherKinds, implicitConversions}
 

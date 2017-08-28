@@ -1,4 +1,4 @@
-package scalaz
+package scalaz.misc
 
 import scala.concurrent.Future
 import scalaz.concurrent.Task
