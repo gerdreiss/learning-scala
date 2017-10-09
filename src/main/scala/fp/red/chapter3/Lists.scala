@@ -1,4 +1,4 @@
-package fp.chapter3
+package fp.red.chapter3
 
 object Lists {
 

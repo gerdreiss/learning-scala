@@ -1,6 +1,6 @@
-package fp.chapter8
+package fp.red.chapter8
 
-import fp.chapter8.Prop.{FailedCase, SuccessCount}
+import fp.red.chapter8.Prop.{FailedCase, SuccessCount}
 
 object Prop {
   type FailedCase = String

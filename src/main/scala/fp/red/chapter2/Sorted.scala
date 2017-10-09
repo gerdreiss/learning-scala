@@ -1,4 +1,4 @@
-package fp.chapter2
+package fp.red.chapter2
 
 object Sorted {
 

@@ -1,4 +1,4 @@
-package fp.chapter4
+package fp.red.chapter4
 
 sealed trait Option[+A] {
   def map[B](f: A => B): Option[B] = this match {

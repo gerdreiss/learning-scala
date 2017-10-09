@@ -1,4 +1,4 @@
-package fp.chapter1
+package fp.red.chapter1
 
 class Coffee(val flavor: String = "espresso", val price: Int = 500 /* cents */)
 

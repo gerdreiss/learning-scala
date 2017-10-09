@@ -1,4 +1,4 @@
-package fp.chapter4
+package fp.red.chapter4
 
 object Exceptions {
 

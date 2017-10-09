@@ -1,4 +1,4 @@
-package fp.chapter11
+package fp.red.chapter11
 
 import scala.language.higherKinds
 

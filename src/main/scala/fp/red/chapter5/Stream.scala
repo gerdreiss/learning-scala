@@ -1,6 +1,6 @@
-package fp.chapter5
+package fp.red.chapter5
 
-import fp.chapter5.Stream._
+import fp.red.chapter5.Stream._
 
 sealed trait Stream[+A] {
   def headOption: Option[A] = this match {

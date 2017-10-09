@@ -1,4 +1,4 @@
-package fp.chapter10
+package fp.red.chapter10
 
 object Monoids {
 

@@ -1,4 +1,4 @@
-package fp.chapter6
+package fp.red.chapter6
 
 trait RNG {
   def nextInt: (Int, RNG) // Should generate a random `Int`. We'll later define other functions in terms of `nextInt`.
@@ -158,7 +158,7 @@ object RNG {
     flatMap(ra)(a => map(rb)(b => f(a, b)))
 }
 
-import fp.chapter6.State._
+import fp.red.chapter6.State._
 
 case class State[S, +A](run: S => (A, S)) {
   def map[B](f: A => B): State[S, B] = flatMap(a => unit(f(a)))

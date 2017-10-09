@@ -1,4 +1,4 @@
-package fp.chapter7
+package fp.red.chapter7
 
 import java.util.concurrent.atomic.{AtomicInteger, AtomicReference}
 import java.util.concurrent.{Callable, ExecutorService}
