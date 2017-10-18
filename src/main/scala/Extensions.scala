@@ -44,6 +44,7 @@ object Extensions {
 
 
     println(Map("a" -> 1, "b" -> 2, "c" -> 3, "d" -> null).safeGet("a"))
+    println(Map("a" -> 1, "b" -> 2, "c" -> 3, "d" -> null).safeGetIfNoneExist("a")("d"))
     println(Map("a" -> 1, "b" -> 2, "c" -> 3, "d" -> null).safeGet2("a", "c"))
     println(Map("a" -> 1, "b" -> 2, "c" -> 3, "d" -> null).safeGet2("a", "d"))
 
