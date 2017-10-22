@@ -1,4 +1,4 @@
-package fp.lfpis
+package fp.simplified
 
 /**
  * Created by grei on 18.10.2017

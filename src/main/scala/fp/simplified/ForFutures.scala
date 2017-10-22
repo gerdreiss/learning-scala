@@ -1,4 +1,4 @@
-package fp.lfpis
+package fp.simplified
 
 import java.lang.Thread.sleep
 
