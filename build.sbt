@@ -2,7 +2,7 @@ name := "learning-scala"
 
 version := "1.0"
 
-scalaVersion := "2.12.3"
+scalaVersion := "2.12.4"
 
 val scalazVersion = "7.2.15"
 
@@ -16,13 +16,14 @@ libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-effect" % scalazVersion,
   "org.scalaz" %% "scalaz-concurrent" % scalazVersion,
   "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test",
+  "org.typelevel" %% "cats-core" % "1.0.0-MF",
   "com.typesafe.akka" %% "akka-actor" % "2.5.1",
-  "org.typelevel" %% "cats" % "0.9.0",
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
 
 scalacOptions += "-feature"
+scalacOptions += "-Ypartial-unification"
 
 addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0"
   cross CrossVersion.full)
