@@ -24,6 +24,7 @@ libraryDependencies ++= Seq(
 
 scalacOptions += "-feature"
 scalacOptions += "-Ypartial-unification"
+scalacOptions += "-Ylog-classpath"
 
 addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0"
   cross CrossVersion.full)

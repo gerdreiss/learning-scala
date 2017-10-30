@@ -1,5 +1,7 @@
 package cats
 
+import scala.language.postfixOps
+
 object Printables extends App {
 
   trait Printable[A] {
@@ -20,14 +22,22 @@ object Printables extends App {
     def print[A](a: A)(implicit p: Printable[A]): Unit = println(format(a))
   }
 
+  object PrintableSyntax {
+    implicit class PrintOps[A](a: A) {
+      def format(implicit p: Printable[A]): String = p.format(a)
+      def print(implicit p: Printable[A]): Unit = println(format)
+    }
+  }
+
   final case class Cat(name: String, age: Int, color: String)
 
   import PrintableInstances._
+  import PrintableSyntax._
 
   implicit val catPrintable = new Printable[Cat] {
     def format(cat: Cat): String = {
-      val name  = Printable.format(cat.name)
-      val age   = Printable.format(cat.age)
+      val name = Printable.format(cat.name)
+      val age = Printable.format(cat.age)
       val color = Printable.format(cat.color)
       s"$name is a $age year-old $color cat."
     }
@@ -35,4 +45,5 @@ object Printables extends App {
 
   val cat = Cat("Garfield", 10, "ginger and black")
   Printable.print(cat)
+  cat.print
 }
