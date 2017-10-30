@@ -17,7 +17,7 @@ libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-concurrent" % scalazVersion,
   "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test",
   "org.typelevel" %% "cats-core" % "1.0.0-MF",
-  "com.typesafe.akka" %% "akka-actor" % "2.5.1",
+  "com.typesafe.akka" %% "akka-actor" % "2.5.6",
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
@@ -26,8 +26,7 @@ scalacOptions += "-feature"
 scalacOptions += "-Ypartial-unification"
 scalacOptions += "-Ylog-classpath"
 
-addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0"
-  cross CrossVersion.full)
+addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0" cross CrossVersion.full)
 
 //libraryDependencies ++= Seq(
 //  "org.specs2" %% "specs2-core" % "3.8.5" % "test"
