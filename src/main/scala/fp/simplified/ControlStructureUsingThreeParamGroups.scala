@@ -1,8 +1,5 @@
 package fp.simplified
 
-/**
- * Created by grei on 18.10.2017
- */
 object ControlStructureUsingThreeParamGroups extends App {
 
   def ifBothTrue(p1: => Boolean)(p2: => Boolean)(f: => Unit): Unit = {

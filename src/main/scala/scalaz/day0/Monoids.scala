@@ -2,9 +2,6 @@ package scalaz.day0
 
 import scala.language.{higherKinds, implicitConversions}
 
-/**
- * Created by grei on 25.08.2017
- */
 object Monoids extends App {
 
   trait Monoid[A] {
