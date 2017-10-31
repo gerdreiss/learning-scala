@@ -16,11 +16,10 @@ object Readers extends App {
     Reader(_.passwords.get(username).contains(password))
 
   def checkLogin(userId: Int, password: String): Reader[DB, Boolean] = for {
-    username <- findUsername(userId)
-    passwordOk <- username.map { username =>
-      checkPassword(username, password)
-    } getOrElse {
-      false.pure[DbReader]
+    maybeUsername <- findUsername(userId)
+    passwordOk <- maybeUsername match {
+      case Some(username) => checkPassword(username, password)
+      case _ => false.pure[DbReader]
     }
   } yield passwordOk
 
