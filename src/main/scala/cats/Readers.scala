@@ -9,9 +9,11 @@ object Readers extends App {
 
   case class DB(usernames: Map[Int, String], passwords: Map[String, String])
 
-  def findUsername(userId: Int): DbReader[Option[String]] = Reader(_.usernames.get(userId))
+  def findUsername(userId: Int): DbReader[Option[String]] =
+    Reader(_.usernames.get(userId))
 
-  def checkPassword(username: String, password: String): DbReader[Boolean] = Reader(_.passwords.get(username).contains(password))
+  def checkPassword(username: String, password: String): DbReader[Boolean] =
+    Reader(_.passwords.get(username).contains(password))
 
   def checkLogin(userId: Int, password: String): Reader[DB, Boolean] = for {
     username <- findUsername(userId)
@@ -23,16 +25,8 @@ object Readers extends App {
   } yield passwordOk
 
   val db = DB(
-    Map(
-      1 -> "dade",
-      2 -> "kate",
-      3 -> "margo"
-    ),
-    Map(
-      "dade" -> "zerocool",
-      "kate" -> "acidburn",
-      "margo" -> "secret"
-    )
+    Map(1 -> "dade", 2 -> "kate", 3 -> "margo"),
+    Map("dade" -> "zerocool", "kate" -> "acidburn", "margo" -> "secret")
   )
 
   println(checkLogin(1, "zerocool").run(db))
