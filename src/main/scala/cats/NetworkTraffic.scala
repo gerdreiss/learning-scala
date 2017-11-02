@@ -1,6 +1,8 @@
 package cats
 
-import scala.util.{Failure, Random, Success}
+import scala.concurrent.Await
+import scala.concurrent.duration.DurationLong
+import scala.util.Random
 
 object NetworkTraffic extends App {
 
@@ -19,9 +21,8 @@ object NetworkTraffic extends App {
       traffic3 <- getTrafficFromHost("host3")
     } yield traffic1 + traffic2 + traffic3
 
-  getTrafficFromAllHosts.onComplete {
-    case Success(t) => println(s"Traffic: $t")
-    case Failure(e) => e.printStackTrace()
-  }
-
+  Await.result(
+    getTrafficFromAllHosts map println,
+    30.seconds
+  )
 }
