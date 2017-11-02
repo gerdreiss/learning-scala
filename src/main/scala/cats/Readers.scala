@@ -16,12 +16,14 @@ object Readers extends App {
     Reader(_.passwords.get(username).contains(password))
 
   def checkLogin(userId: Int, password: String): Reader[DB, Boolean] = for {
-    maybeUsername <- findUsername(userId)
-    passwordOk <- maybeUsername match {
-      case Some(username) => checkPassword(username, password)
+    username <- findUsername(userId)
+    passwordOk <- username match {
+      case Some(name) => checkPassword(name, password)
       case _ => false.pure[DbReader]
     }
   } yield passwordOk
+
+
 
   val db = DB(
     Map(1 -> "dade", 2 -> "kate", 3 -> "margo"),
