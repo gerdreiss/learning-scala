@@ -1,12 +1,11 @@
 package cats
 
-import cats.data.Validated._
-import cats.data._
-import cats.syntax.all._
-
-// TODO does not work!!!
-
 object FormValidation extends App {
+
+  import cats.data.Validated._
+  import cats.data._
+  import cats.syntax.all._
+  import cats.instances.all._
 
   type FormData = Map[String, String]
   type Errors = List[String]
@@ -37,11 +36,11 @@ object FormValidation extends App {
       .leftMap(_ => List(s"'$name' must be an integer"))
 
   def nonBlank(name: String)(data: String): ErrorsOr[String] =
-    Right(data)
+    Right[Errors, String](data)
       .ensure[Errors](List(s"'$name' cannot be blank"))(_.nonEmpty)
 
   def nonNegative(name: String)(data: Int): ErrorsOr[Int] =
-    Right(data)
+    Right[Errors, Int](data)
       .ensure[Errors](List(s"'$name' must be non-negative"))(_ >= 0)
 
   def readName(data: FormData): ErrorsOr[String] =
