@@ -1,8 +1,5 @@
 package oop
 
-/**
- * Created by grei on 03.11.2017
- */
 object InheritanceMandness extends App {
 
   trait T1 {
