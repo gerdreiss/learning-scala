@@ -15,13 +15,20 @@ object Readers extends App {
   def checkPassword(username: String, password: String): DbReader[Boolean] =
     Reader(_.passwords.get(username).contains(password))
 
-  def checkLogin(userId: Int, password: String): Reader[DB, Boolean] = for {
-    username <- findUsername(userId)
-    passwordOk <- username match {
-      case Some(name) => checkPassword(name, password)
-      case _ => false.pure[DbReader]
-    }
-  } yield passwordOk
+  def checkLogin(userId: Int, password: String): Reader[DB, Boolean] =
+    for {
+      username <- findUsername(userId)
+      passwordOk <- username match {
+        case Some(name) => checkPassword(name, password)
+        case _ => false.pure[DbReader]
+      }
+    } yield passwordOk
+    //findUsername(userId).flatMap {
+    //  _.map { name =>
+    //    checkPassword(name, password)
+    //  }
+    //    .getOrElse(false.pure[DbReader])
+    //}
 
 
 
@@ -32,4 +39,5 @@ object Readers extends App {
 
   println(checkLogin(1, "zerocool").run(db))
   println(checkLogin(4, "davinci").run(db))
+
 }
