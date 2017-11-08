@@ -25,13 +25,12 @@ libraryDependencies ++= Seq(
 scalacOptions += "-feature"
 scalacOptions += "-Ypartial-unification"
 scalacOptions += "-Ylog-classpath"
+scalacOptions in Test ++= Seq("-Yrangepos")
 
 addCompilerPlugin("org.scalamacros" %% "paradise" % "2.1.0" cross CrossVersion.full)
 
 //libraryDependencies ++= Seq(
 //  "org.specs2" %% "specs2-core" % "3.8.5" % "test"
 //)
-
-scalacOptions in Test ++= Seq("-Yrangepos")
 
 initialCommands in console := "import scalaz._, Scalaz._\n"
