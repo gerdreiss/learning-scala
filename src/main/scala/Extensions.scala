@@ -89,7 +89,7 @@ object Extensions {
     println(Map("a" -> 1, "b" -> 2, "c" -> 3, "d" -> null).safeGet2("a", "d"))
 
     val m = Map(
-      "name1" -> "value1",
+      "name1" -> "value1", "name2" -> "value2",
       "nested1" -> Map("name1" -> "value1", "name2" -> "value2"),
       "nestedList1" -> List(
         Map("name1" -> "value1", "name2" -> "value2"),
