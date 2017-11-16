@@ -90,22 +90,21 @@ object Extensions {
 
     val m = Map(
       "name1" -> "value1",
-      "nested1" -> Map(
-        "name1" -> "value1",
-        "name2" -> "value2"
-      ),
+      "nested1" -> Map("name1" -> "value1", "name2" -> "value2"),
       "nestedList1" -> List(
-        Map(
-          "name1" -> "value1",
-          "name2" -> "value2"
-        ),
-        Map(
-          "name1" -> "value1",
-          "name2" -> "value2"
-        )
+        Map("name1" -> "value1", "name2" -> "value2"),
+        Map("name1" -> "value1", "name2" -> "value2")
       )
     )
-    println(m.flattenKeys())
+    println
+    println {
+      m.flattenKeys()
+        .toSeq
+        .sortBy(_._1)
+        .map {
+          case (k, v) => s"$k = $v"
+        }
+        .mkString("\n")
+    }
   }
-
 }
