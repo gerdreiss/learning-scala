@@ -55,9 +55,7 @@ object Extensions {
   //
   implicit class StringExt(s: String) {
     def toInteger: Integer = s.toInt.integer
-
     def toBigInt: BigInt = BigInt(s)
-
     def toBigDecimal: BigDecimal = BigDecimal(s)
   }
 
