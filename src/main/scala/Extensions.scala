@@ -1,4 +1,4 @@
-
+import scala.util.Try
 
 object Extensions {
 
@@ -61,19 +61,22 @@ object Extensions {
 
   /** A supporting class which makes the function toFlatTupleList available for Maps */
   implicit class MapKeyFlattener(m: Map[String, Any]) {
-    def flattenKeys(prefix: String = "root"): Map[String, Any] = {
+    def flattenKeys(prefix: String = "root"): Map[String, Any] =
       m.toSeq.flatMap {
-        case (k, v) if v.isInstanceOf[Map[String, Any]] =>
-          val vMap = v.asInstanceOf[Map[String, Any]]
-          vMap.flattenKeys(s"$prefix.$k")
-        case (k, v) if v.isInstanceOf[List[Map[String, Any]]] =>
-          val vList = v.asInstanceOf[List[Map[String, Any]]]
-          vList.indices.flatMap { idx =>
-            vList(idx).flattenKeys(s"$prefix.$k.$idx")
+        case (k, v: Map[String, Any]) =>
+          v.flattenKeys(s"$prefix.$k")
+        case (k, v: List[Map[String, Any]]) =>
+          v.indices.flatMap { idx =>
+            v(idx).flattenKeys(s"$prefix.$k.$idx")
           }
-        case (k, v) => Seq((s"$prefix.$k", v))
+        case (k, v) =>
+          Seq((s"$prefix.$k", v))
       }.toMap
-    }
+  }
+
+  implicit class OptionOps[A](a: => A) {
+    def opt: Option[A] = Option(a)
+    def tryOpt: Option[A] = Try(a).toOption
   }
 
 
