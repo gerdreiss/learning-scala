@@ -13,11 +13,13 @@ object FreeMonads extends App {
   sealed trait Orders[A]
   case class Buy(stock: Symbol, amount: Int) extends Orders[Response]
   case class Sell(stock: Symbol, amount: Int) extends Orders[Response]
+  case class ListStocks() extends Orders[List[Symbol]]
 
   type OrdersF[A] = Free[Orders, A]
 
   def buy(stock: Symbol, amount: Int): OrdersF[Response] = liftF[Orders, Response](Buy(stock, amount))
   def sell(stock: Symbol, amount: Int): OrdersF[Response] = liftF[Orders, Response](Sell(stock, amount))
+  def listStocks(): OrdersF[List[Symbol]] = liftF[Orders, List[Symbol]](ListStocks())
 
   val flatMapThat: OrdersF[Response] =
     buy("APPL", 50)
@@ -34,6 +36,9 @@ object FreeMonads extends App {
   def orderPrinter: Orders ~> Id =
     new (Orders ~> Id) {
       def apply[A](fa: Orders[A]): Id[A] = fa match {
+        case ListStocks() =>
+          println(s"Getting list of stocks: FB, TWTR")
+          List("FB", "TWTR")
         case Buy(stock, amount) =>
           println(s"Buying $amount of $stock")
           "ok"
@@ -57,6 +62,14 @@ object FreeMonads extends App {
         }
     }
 
+  val smartTradeWithList: Free[Orders, String] = for {
+    st <- listStocks()
+    _ <- st.traverseU(buy(_, 100))
+    rsp <- sell("GOOG", 100)
+  } yield rsp
+
+
   smartTrade.foldMap(orderPrinter)
   println(smartTrade.foldMap(xorInterpreter))
+  smartTradeWithList.foldMap(orderPrinter)
 }
