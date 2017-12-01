@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-effect" % scalazVersion,
   "org.scalaz" %% "scalaz-concurrent" % scalazVersion,
   "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test",
-  "org.typelevel" %% "cats-core" % "1.0.0-MF",
+  "org.typelevel" %% "cats-core" % "1.0.0-RC1",
+  "org.typelevel" %% "cats-free" % "1.0.0-RC1",
   "com.typesafe.akka" %% "akka-actor" % "2.5.6",
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"

@@ -4,8 +4,7 @@ object FormValidation extends App {
 
   import cats.data.Validated._
   import cats.data._
-  import cats.syntax.all._
-  import cats.instances.all._
+  import cats.implicits._
 
   type FormData = Map[String, String]
   type Errors = List[String]
@@ -54,7 +53,7 @@ object FormValidation extends App {
       flatMap(nonNegative("age"))
 
   def readUser(data: FormData): AllErrorsOr[User] =
-    Cartesian.map2(
+    Semigroupal.map2(
       readName(data).toValidated,
       readAge(data).toValidated
     )(User.apply)
