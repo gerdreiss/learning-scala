@@ -62,14 +62,15 @@ object FreeMonads extends App {
         }
     }
 
-  val smartTradeWithList: Free[Orders, String] = for {
-    st <- listStocks()
-    _ <- st.traverseU(buy(_, 100))
-    rsp <- sell("GOOG", 100)
-  } yield rsp
+  // that thing here ain't compiling
+  //val smartTradeWithList: Free[Orders, String] = for {
+  //  st <- listStocks()
+  //  _ <- st.traverseU(buy(_, 100))
+  //  rsp <- sell("GOOG", 100)
+  //} yield rsp
 
 
   smartTrade.foldMap(orderPrinter)
   println(smartTrade.foldMap(xorInterpreter))
-  smartTradeWithList.foldMap(orderPrinter)
+  //smartTradeWithList.foldMap(orderPrinter)
 }
