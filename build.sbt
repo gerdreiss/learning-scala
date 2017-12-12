@@ -20,6 +20,7 @@ libraryDependencies ++= Seq(
   "org.typelevel" %% "cats-free" % "1.0.0-RC1",
   "org.typelevel" %% "alleycats-core" % "1.0.0-RC1",
   "com.typesafe.akka" %% "akka-actor" % "2.5.6",
+  "com.chuusai" %% "shapeless" % "2.3.2",
   "org.scalactic" %% "scalactic" % "3.0.0",
   "org.scalatest" %% "scalatest" % "3.0.0" % "test"
 )
