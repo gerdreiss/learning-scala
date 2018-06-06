@@ -2,7 +2,7 @@ name := "learning-scala"
 
 version := "1.0"
 
-scalaVersion := "2.12.4"
+scalaVersion := "2.12.6"
 
 val scalazVersion = "7.2.15"
 
@@ -16,9 +16,9 @@ libraryDependencies ++= Seq(
   "org.scalaz" %% "scalaz-effect" % scalazVersion,
   "org.scalaz" %% "scalaz-concurrent" % scalazVersion,
   "org.scalaz" %% "scalaz-scalacheck-binding" % scalazVersion % "test",
-  "org.typelevel" %% "cats-core" % "1.0.0-RC1",
-  "org.typelevel" %% "cats-free" % "1.0.0-RC1",
-  "org.typelevel" %% "alleycats-core" % "1.0.0-RC1",
+  "org.typelevel" %% "cats-core" % "1.0.0",
+  "org.typelevel" %% "cats-free" % "1.0.0",
+  "org.typelevel" %% "alleycats-core" % "1.0.0",
   "com.typesafe.akka" %% "akka-actor" % "2.5.6",
   "com.chuusai" %% "shapeless" % "2.3.2",
   "org.scalactic" %% "scalactic" % "3.0.0",

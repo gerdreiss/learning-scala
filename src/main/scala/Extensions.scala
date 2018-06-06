@@ -12,7 +12,7 @@ object Extensions {
       }
 
     def safeGetFirst(keys: K*): Option[V] =
-      keys.find(map.contains).flatMap(safeGet)
+      keys.find(map.hasValue).flatMap(safeGet)
 
     def safeGetIfNoneExist(key: K)(noneExist: K*): Option[V] =
       safeGetFirst(noneExist: _*) match {
