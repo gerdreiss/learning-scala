@@ -1,3 +1,5 @@
+package exercism
+
 import scala.language.postfixOps
 
 object SumOfMultiples {
