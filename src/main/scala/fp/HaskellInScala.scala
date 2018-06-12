@@ -1,6 +1,6 @@
 package fp
 
-object Haskell extends App {
+object HaskellInScala extends App {
 
   val func1 = (_: Double) * 2.0
   val func2 = (_: Double) / 10.0

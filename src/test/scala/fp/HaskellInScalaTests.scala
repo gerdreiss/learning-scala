@@ -1,11 +1,11 @@
-import org.scalatest.{FunSuite, Matchers}
+package fp
 
-import scala.collection.immutable
+import org.scalatest.{FunSuite, Matchers}
 
 /**
   * Trying to implement things the Haskell way
   */
-class HaskellInScala extends FunSuite with Matchers {
+class HaskellInScalaTests extends FunSuite with Matchers {
 
   val show = (x: Int) => x.toString
   val digitToInt = (s: String) => s.map(_.asDigit)
