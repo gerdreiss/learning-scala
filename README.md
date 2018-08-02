@@ -7,4 +7,4 @@
 - Various blog entries and tutorials
 - Cats
 - Scalaz
-
+- Programming a guessing game with [John de Goes](https://www.youtube.com/watch?v=sxudIMiOo68)
