@@ -98,7 +98,7 @@ object Game extends App {
     _    <- gameLoop(name)
   } yield ()
 
-  import IO._
+  def mainIO: IO[Unit] = main[IO]
 
-  main.unsafeRun
+  mainIO.unsafeRun
 }
