@@ -23,10 +23,10 @@ object Game extends App {
     _     <- putStrLn(s"Do you want to continue, $name?")
     input <- getStrLn.map(_.toLowerCase)
     cont  <- input match {
-      case "y" => finish(true)
-      case "n" => finish(false)
-      case _ => checkContinue(name)
-    }
+               case "y" => finish(true)
+               case "n" => finish(false)
+               case _ => checkContinue(name)
+             }
   } yield cont
 
   def gameLoop[F[_]: Program: Random: Console](name: String): F[Unit] = for {
