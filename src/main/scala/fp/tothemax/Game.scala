@@ -19,6 +19,14 @@ object Game extends App {
   def getStrLn[F[_]: Console]: F[String] = Console[F].getStrLn
   def nextInt[F[_]: Random](upper: Int): F[Int] = Random[F].nextInt(upper)
 
+  def printResults[F[_]: Console](name: String, num: Int, input: String): F[Unit] = {
+    parseInt(input)
+      .fold(putStrLn("You did not enter a number")) { guess =>
+        if (guess == num) putStrLn(s"You guessed right, $name!")
+        else putStrLn(s"You guessed wrong, $name! The number was: $num")
+      }
+  }
+
   def checkContinue[F[_]: Program: Console](name: String): F[Boolean] = for {
     _     <- putStrLn(s"Do you want to continue, $name?")
     input <- getStrLn.map(_.toLowerCase)
@@ -33,11 +41,7 @@ object Game extends App {
     num   <- nextInt(5).map(_ + 1)
     _     <- putStrLn(s"Dear $name, please guess a number from 1 to 5: ")
     input <- getStrLn
-    _     <- parseInt(input)
-               .fold(putStrLn("You did not enter a number")) { guess =>
-                  if (guess == num) putStrLn(s"You guessed right, $name!")
-                  else              putStrLn(s"You guessed wrong, $name! The number was: $num")
-                }
+    _     <- printResults(name, num, input)
     cont  <- checkContinue(name)
     _     <- if (cont) gameLoop(name) else finish(())
   } yield ()
