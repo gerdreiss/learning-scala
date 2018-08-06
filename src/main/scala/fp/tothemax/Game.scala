@@ -4,6 +4,7 @@ import scala.util.Try
 import scala.language.higherKinds
 
 import Algebra._
+import TestAlgebra._
 
 /**
   * Programming a guessing game with John de Goes:
@@ -48,7 +49,21 @@ object Game extends App {
     _    <- gameLoop(name)
   } yield ()
 
+  // RUNNING
   def mainIO: IO[Unit] = main[IO]
 
   mainIO.unsafeRun
+
+  // TESTING
+  val TestExample = TestData(
+    input = "John" :: "1" :: "n" :: Nil,
+    output = Nil,
+    nums = 0 :: Nil
+  )
+
+  def mainTestIO: TestIO[Unit] = main[TestIO]
+
+  def runTest = mainTestIO.eval(TestExample).showResults
+
+  println(runTest)
 }
