@@ -1,4 +1,4 @@
-package typesystem
+package typesystem.basics
 
 object InfixTypeNotation extends App {
 

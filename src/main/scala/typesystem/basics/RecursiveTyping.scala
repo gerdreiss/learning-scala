@@ -1,4 +1,4 @@
-package typesystem
+package typesystem.basics
 
 object RecursiveTyping extends App {
 

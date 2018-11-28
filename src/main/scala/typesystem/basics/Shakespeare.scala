@@ -1,6 +1,4 @@
-package typesystem
-
-import scala.language.postfixOps
+package typesystem.basics
 
 object Shakespeare extends App {
 
