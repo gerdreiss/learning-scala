@@ -8,7 +8,15 @@ ThisBuild / organizationName := "none"
 lazy val root = (project in file("."))
   .settings(
     name := "ShoppingCart",
-    libraryDependencies += scalaTest % Test
+    scalacOptions += "-Ymacro-annotations",
+    libraryDependencies ++= Seq(
+      compilerPlugin(Libraries.kindProjector),
+      compilerPlugin(Libraries.betterMonadicFor),
+      Libraries.cats,
+      Libraries.catsEffect,
+      Libraries.console4cats,
+      Libraries.fs2,
+      Libraries.newtype,
+      Libraries.refinedCore
+    )
   )
-
-// See https://www.scala-sbt.org/1.x/docs/Using-Sonatype.html for instructions on how to publish to Sonatype.
