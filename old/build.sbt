@@ -4,7 +4,7 @@ version := "1.0"
 
 scalaVersion := "2.12.8"
 
-val scalazVersion = "7.2.27"
+val scalazVersion = "7.3.0-SNAPSHOT"
 
 libraryDependencies ++= Seq(
   "org.scala-lang" % "scala-library" % scalaVersion.value,
