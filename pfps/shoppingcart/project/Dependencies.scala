@@ -6,12 +6,12 @@ object Dependencies {
     val cats = "2.0.0"
     val catsEffect = "2.0.0"
     val console4cats = "0.8.0"
-    val fs2 = "2.0.0"
+    val fs2 = "2.0.1"
     val log4cats = "1.0.0"
     val newtype = "0.4.3"
     val refined = "0.9.10"
 
-    val betterMonadicFor = "0.3.0"
+    val betterMonadicFor = "0.3.1"
     val kindProjector = "0.10.3"
     val logback = "1.2.1"
   }
