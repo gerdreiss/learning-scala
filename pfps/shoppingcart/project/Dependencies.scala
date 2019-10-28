@@ -6,6 +6,7 @@ object Dependencies {
     val cats = "2.0.0"
     val catsEffect = "2.0.0"
     val console4cats = "0.8.0"
+    val redis4cats = "0.9.1"
     val fs2 = "2.0.1"
     val log4cats = "1.0.0"
     val newtype = "0.4.3"
@@ -25,6 +26,7 @@ object Dependencies {
     lazy val refinedCore = "eu.timepit" %% "refined" % Versions.refined
     lazy val refinedCats = "eu.timepit" %% "refined-cats" % Versions.refined
 
+    lazy val redis4cats = "dev.profunktor" %% "redis4cats-effects" % Versions.redis4cats
     lazy val log4cats = "io.chrisdavenport" %% "log4cats-slf4j" % Versions.log4cats
     lazy val newtype = "io.estatico" %% "newtype" % Versions.newtype
 

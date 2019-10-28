@@ -15,6 +15,7 @@ lazy val root = (project in file("."))
       Libraries.cats,
       Libraries.catsEffect,
       Libraries.console4cats,
+      Libraries.redis4cats,
       Libraries.fs2,
       Libraries.newtype,
       Libraries.refinedCore
