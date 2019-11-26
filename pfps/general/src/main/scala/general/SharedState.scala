@@ -1,4 +1,4 @@
-package shoppingcart
+package general
 
 import cats.effect.concurrent.Semaphore
 import cats.effect._

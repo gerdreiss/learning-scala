@@ -15,16 +15,16 @@ object LeakySharedState extends IOApp {
   // global access
   val sem: Semaphore[IO] = Semaphore[IO](1).unsafeRunSync()
 
-  def someExpensiveTask: IO[Unit] =
-    IO.sleep(1.second) >> putStrLn("expensive task") >> someExpensiveTask
+  def someExpensiveTask(no: Int): IO[Unit] =
+    IO.sleep(1.second) >> putStrLn(s"expensive task $no") >> someExpensiveTask(no)
 
   //new LaunchMissiles(sem).run // Unit
 
   def p1: IO[Unit] =
-    sem.withPermit(someExpensiveTask) >> p1
+    sem.withPermit(someExpensiveTask(1)) >> p1
 
   def p2: IO[Unit] =
-    sem.withPermit(someExpensiveTask) >> p2
+    sem.withPermit(someExpensiveTask(2)) >> p2
 
   def run(args: List[String]): IO[ExitCode] =
     p1.start.void *> p2.start.void *> IO.never.as(ExitCode.Success)

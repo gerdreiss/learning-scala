@@ -17,6 +17,9 @@ lazy val root = (project in file("."))
       Libraries.console4cats,
       Libraries.fs2,
       Libraries.newtype,
-      Libraries.refinedCore
+      Libraries.refinedCore,
+      Libraries.meowMtl,
+      Libraries.http4sCore,
+      Libraries.http4sDsl
     )
   )
