@@ -8,7 +8,9 @@ ThisBuild / organizationName := "none"
 lazy val root = (project in file("."))
   .settings(
     name := "ShoppingCart",
-    scalacOptions += "-Ymacro-annotations",
+    scalacOptions ++= Seq(
+      "-Ymacro-annotations"
+    ),
     libraryDependencies ++= Seq(
       compilerPlugin(Libraries.kindProjector),
       compilerPlugin(Libraries.betterMonadicFor),
@@ -16,6 +18,9 @@ lazy val root = (project in file("."))
       Libraries.catsEffect,
       Libraries.console4cats,
       Libraries.redis4cats,
+      Libraries.catsRetryCore,
+      Libraries.catsRetryCatsEffect,
+      Libraries.log4cats,
       Libraries.fs2,
       Libraries.newtype,
       Libraries.refinedCore
