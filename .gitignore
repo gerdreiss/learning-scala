@@ -4,6 +4,7 @@
 # http://www.scala-sbt.org/release/docs/Getting-Started/Directories.html#configuring-version-control
 
 .bloop/
+.bsp/
 .idea/
 .metals/
 target/
@@ -12,6 +13,7 @@ src_managed/
 project/boot/
 .history
 .cache
+metals.sbt
 ### Scala template
 *.class
 *.log
@@ -28,3 +30,9 @@ project/plugins/project/
 # ENSIME specific
 .ensime_cache/
 .ensime
+
+# VS Code specific
+.vscode/
+
+# Mac OS specific
+.DS_Store
