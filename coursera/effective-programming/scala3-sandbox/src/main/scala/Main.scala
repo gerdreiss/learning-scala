@@ -1,4 +1,8 @@
-@main def hello: Unit =
+@main def hello( /*name: String, age: Int*/ ): Unit =
+  //println("-" * 50)
+  //println(s"Hello, $name ($age)!")
+  println("-" * 50)
+  usage()
   println("-" * 50)
   println("factorial.by_product(5)           = " + factorial.by_product(5))
   println("factorial.by_foldLeft(5)          = " + factorial.by_foldLeft(5))
