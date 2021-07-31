@@ -3,7 +3,7 @@
 - Books:
   - 'Programming in Scala' by Martin Odersky, Les Spoon and Bill Venners
   - 'Functional Programming in Scala' by Paul Chiusano and Runar Bjarnason
-  - [Practical FP in Scala](https://leanpub.com/pfp-scala)
+  - [Practical FP in Scala: A hands-on approach](https://leanpub.com/pfp-scala) by Gabriel Volpe
 - Youtube:
   - Programming a guessing game with [John de Goes](https://www.youtube.com/watch?v=sxudIMiOo68)
   - Youtube video [Free monad or tagless final?](https://www.youtube.com/watch?v=IhVdU4Xiz2U)
