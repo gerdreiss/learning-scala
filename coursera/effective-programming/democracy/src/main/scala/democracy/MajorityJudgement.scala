@@ -139,7 +139,9 @@ case class Election(description: String, candidates: Set[Candidate]):
         // And use the operation `diff` to remove one `bestMedianGrade` from the
         // grades assigned to the candidates.
         val bestCandidatesMinusOneMedianGrade: Map[Candidate, Seq[Grade]] =
-          bestCandidates.map((c, gs) => (c, gs.diff(Seq(bestMedianGrade))))
+          bestCandidates.view
+          .mapValues(_.diff(Seq(bestMedianGrade)))
+          .toMap
   
         // Finally, call `findWinner` on the reduced collection of candidates,
         // `bestCandidatesMinusOneMedianGrade`.
