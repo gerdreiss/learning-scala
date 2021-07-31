@@ -10,3 +10,5 @@
   println("Loop B: " + loopB(List(1, 1, 2, 3, 5, 8)))
   println("Loop C: " + loopC(List(1, 1, 2, 3, 5, 8)))
   println("Loop D: " + loopD(List(1, 1, 2, 3, 5, 8)))
+
+def msg = "I was compiled by Scala 3. :)"
