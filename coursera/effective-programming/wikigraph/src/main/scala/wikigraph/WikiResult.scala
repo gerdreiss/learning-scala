@@ -1,8 +1,8 @@
 package wikigraph
 
-import scala.concurrent.{ ExecutionContext, Future }
-import wikigraph.errors.WikiError
-import wikigraph.errors.WikiException
+import wikigraph.errors.{WikiError, WikiException}
+
+import scala.concurrent.{ExecutionContext, Future}
 
 /**
   * The result of an asynchronous computation which may fail.
@@ -56,7 +56,11 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
     * Hint: Both Either and Future have a similar method
     */
   def map[B](f: A => B)(using ExecutionContext): WikiResult[B] =
-    ???
+    val r: Future[Either[Seq[WikiError], B]] = value.map {
+      case Right(a) => Right(f(a))
+      case Left(e)  => Left(e)
+    }
+    WikiResult(r)
 
   /**
     * Use the result of this computation as an input for another asynchronous
@@ -67,9 +71,10 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
     * Hint: Future has a similar method. If the first computation fails, its
     *       error should be propagated
     */
-  def flatMap[B](f: A => WikiResult[B])(using ExecutionContext): WikiResult[B] = 
+  def flatMap[B](f: A => WikiResult[B])(using ExecutionContext): WikiResult[B] =
     val futureB: Future[Either[Seq[WikiError], B]] = value.flatMap {
-      ???
+      case Right(a) => f(a).value
+      case Left(e) => Future.successful(Left(e))
     }
     WikiResult(futureB)
 
@@ -84,7 +89,11 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
     */
   def zip[B](that: WikiResult[B])(using ExecutionContext): WikiResult[(A, B)] =
     def zipEithersAcc(a: Either[Seq[WikiError], A], b: Either[Seq[WikiError], B]): Either[Seq[WikiError], (A, B)] =
-      ???
+      for {
+        ra <- a
+        rb <- b
+      } yield (ra, rb)
+
     WikiResult(this.value.flatMap { thisEither =>
       that.value.map { thatEither =>
         zipEithersAcc(thisEither, thatEither)
@@ -141,6 +150,18 @@ object WikiResult:
     * empty, return a successful empty sequence.
     */
   def traverse[A, B](as: Seq[A])(f: A => WikiResult[B])(using ExecutionContext): WikiResult[Seq[B]] =
-    ???
+    val zero: Future[Either[Seq[WikiError], Seq[B]]] = Future(Right(List.empty))
+    val result =
+      as.foldLeft(zero) {
+        (acc, a) =>
+          acc.zipWith(f(a).value) {
+            (errorsOrBs, errorsOrB) =>
+              for {
+                bs <- errorsOrBs
+                b <- errorsOrB
+              } yield bs :+ b
+          }
+      }
+    WikiResult(result)
 
 end WikiResult
