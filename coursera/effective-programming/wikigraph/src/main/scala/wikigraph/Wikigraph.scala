@@ -1,9 +1,9 @@
 package wikigraph
 
-import scala.concurrent.Future
-import scala.concurrent.ExecutionContext.Implicits.global
+import wikigraph.Articles.ArticleId
 
-import Articles.ArticleId
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 
 /**
@@ -21,7 +21,10 @@ final class Wikigraph(client: Wikipedia):
     * Hint: Use the methods that you implemented in WikiResult.
     */
   def namedLinks(of: ArticleId): WikiResult[Set[String]] =
-    ???
+    client.linksFrom(of)
+      .map(_.toSeq)
+      .flatMap(WikiResult.traverse(_)(client.nameOfArticle))
+      .map(_.toSet)
 
   /**
     * Computes the distance between two articles using breadth first search.
@@ -59,9 +62,21 @@ final class Wikigraph(client: Wikipedia):
       * @param q the next nodes to visit and their distance from `start`
       */
     def iter(visited: Set[ArticleId], q: Queue[(Int, ArticleId)]): WikiResult[Option[Int]] =
-      ???
+      if q.isEmpty then WikiResult.successful(None)
+      else
+        val ((distance, articleId), newQ) = q.dequeue
+        if (distance > maxDepth) then WikiResult.successful(None)
+        else client
+          .linksFrom(articleId)
+          .flatMap { articleIds =>
+            if articleIds.contains(target) then WikiResult.successful(Some(distance))
+            else
+              val toVisit = (articleIds -- visited).map((distance, _))
+              iter(visited + articleId, newQ.enqueueAll(toVisit))
+          }
+
     if start == target then WikiResult.successful(Some(0))
-    else iter(Set(start), Queue(1->start))
+    else iter(Set(start), Queue(1 -> start))
 
   /**
     * Computes the distances between some pages provided the list of their titles.
@@ -77,5 +92,15 @@ final class Wikigraph(client: Wikipedia):
     *       breadthFirstSearch
     */
   def distanceMatrix(titles: List[String], maxDepth: Int = 50): WikiResult[Seq[(String, String, Option[Int])]] =
-    ???
+    for {
+      idsAndTitles <- WikiResult.traverse(titles) {
+                        title => client.searchId(title).map((_, title))
+                      }
+      results      <- WikiResult.traverse(idsAndTitles.combinations(2).toList) {
+                        case (id1, title1) :: (id2, title2) :: _ =>
+                          breadthFirstSearch(id1, id2, maxDepth)
+                            .map((title1, title2, _))
+                      }
+    } yield results
+
 end Wikigraph

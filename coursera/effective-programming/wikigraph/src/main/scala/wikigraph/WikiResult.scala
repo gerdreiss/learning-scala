@@ -56,11 +56,7 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
     * Hint: Both Either and Future have a similar method
     */
   def map[B](f: A => B)(using ExecutionContext): WikiResult[B] =
-    val r: Future[Either[Seq[WikiError], B]] = value.map {
-      case Right(a) => Right(f(a))
-      case Left(e)  => Left(e)
-    }
-    WikiResult(r)
+    WikiResult(value.map(_.map(f)))
 
   /**
     * Use the result of this computation as an input for another asynchronous
@@ -89,10 +85,12 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
     */
   def zip[B](that: WikiResult[B])(using ExecutionContext): WikiResult[(A, B)] =
     def zipEithersAcc(a: Either[Seq[WikiError], A], b: Either[Seq[WikiError], B]): Either[Seq[WikiError], (A, B)] =
-      for {
-        ra <- a
-        rb <- b
-      } yield (ra, rb)
+      (a, b) match
+        case (Left(af), Left(bf)) => Left(af ++ bf)
+        case _ => for {
+          ar <- a
+          br <- b
+        } yield (ar, br)
 
     WikiResult(this.value.flatMap { thisEither =>
       that.value.map { thatEither =>
@@ -150,20 +148,8 @@ object WikiResult:
     * empty, return a successful empty sequence.
     */
   def traverse[A, B](as: Seq[A])(f: A => WikiResult[B])(using ExecutionContext): WikiResult[Seq[B]] =
-    val zero: Future[Either[Seq[WikiError], Seq[B]]] =
-      Future(Right(List.empty))
-    val result: Future[Either[Seq[WikiError], Seq[B]]] =
-      as.foldLeft(zero) {
-        (evtlErrorsOrBs, a) =>
-          val evtlErrorsOrB = f(a).value
-          evtlErrorsOrBs.zipWith(evtlErrorsOrB) {
-            (errorsOrBs, errorsOrB) =>
-              for {
-                bs <- errorsOrBs
-                b <- errorsOrB
-              } yield bs :+ b
-          }
-      }
-    WikiResult(result)
+    as.foldLeft(WikiResult.successful(Seq.empty[B])) { (acc, a) =>
+      acc.zip(f(a)).map((bs, b) => bs :+ b)
+    }
 
 end WikiResult
