@@ -36,3 +36,6 @@ project/plugins/project/
 
 # Mac OS specific
 .DS_Store
+
+# Misc
+*.db
