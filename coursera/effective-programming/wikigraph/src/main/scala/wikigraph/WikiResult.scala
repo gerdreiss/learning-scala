@@ -150,8 +150,9 @@ object WikiResult:
     * empty, return a successful empty sequence.
     */
   def traverse[A, B](as: Seq[A])(f: A => WikiResult[B])(using ExecutionContext): WikiResult[Seq[B]] =
-    val zero: Future[Either[Seq[WikiError], Seq[B]]] = Future(Right(List.empty))
-    val result =
+    val zero: Future[Either[Seq[WikiError], Seq[B]]] =
+      Future(Right(List.empty))
+    val result: Future[Either[Seq[WikiError], Seq[B]]] =
       as.foldLeft(zero) {
         (evtlErrorsOrBs, a) =>
           val evtlErrorsOrB = f(a).value
