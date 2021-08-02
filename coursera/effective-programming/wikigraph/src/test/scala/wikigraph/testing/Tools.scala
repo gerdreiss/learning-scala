@@ -18,7 +18,7 @@ extension [A] (el: WikiResult[A])(using ExecutionContext)
   def extractUnsafe: A =
     Try(Await.result(el.value, timeout)) match 
       case Success(Right(a)) => a
-      case Failure(error) => throw error
+      case _ => throw Exception("impossible")
 
 def blockAndCompare[A](a: WikiResult[A], b: WikiResult[A]): Boolean =
   (Try(Await.result(a.value, timeout)) == Try(Await.result(b.value, timeout)))

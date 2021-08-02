@@ -64,16 +64,17 @@ final class Wikigraph(client: Wikipedia):
     def iter(visited: Set[ArticleId], q: Queue[(Int, ArticleId)]): WikiResult[Option[Int]] =
       if q.isEmpty then WikiResult.successful(None)
       else
-        val ((distance, articleId), newQ) = q.dequeue
-        if (distance > maxDepth) then WikiResult.successful(None)
+        val ((distance, articleId), remainingQ) = q.dequeue
+        if (distance >= maxDepth) then WikiResult.successful(None)
         else client
           .linksFrom(articleId)
           .flatMap { articleIds =>
             if articleIds.contains(target) then WikiResult.successful(Some(distance))
             else
-              val toVisit = (articleIds -- visited).map((distance, _))
-              iter(visited + articleId, newQ.enqueueAll(toVisit))
+              val toVisit = (articleIds -- visited).map((distance + 1, _))
+              iter(visited + articleId, remainingQ.enqueueAll(toVisit))
           }
+          .fallbackTo(iter(visited + articleId, remainingQ))
 
     if start == target then WikiResult.successful(Some(0))
     else iter(Set(start), Queue(1 -> start))
@@ -96,11 +97,19 @@ final class Wikigraph(client: Wikipedia):
       idsAndTitles <- WikiResult.traverse(titles) {
                         title => client.searchId(title).map((_, title))
                       }
-      results      <- WikiResult.traverse(idsAndTitles.combinations(2).toList) {
-                        case (id1, title1) :: (id2, title2) :: _ =>
+      results      <- WikiResult.traverse(mkCombinations(idsAndTitles)) {
+                        case ((id1, title1), (id2, title2))  =>
                           breadthFirstSearch(id1, id2, maxDepth)
                             .map((title1, title2, _))
                       }
     } yield results
+
+  private def mkCombinations(idsAndTitles: Seq[(ArticleId, String)]): Seq[((ArticleId, String), (ArticleId, String))] =
+    for {
+      a <- idsAndTitles
+      b <- idsAndTitles
+      if a != b
+    } yield (a, b)
+
 
 end Wikigraph

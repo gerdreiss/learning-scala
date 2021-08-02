@@ -70,7 +70,7 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
   def flatMap[B](f: A => WikiResult[B])(using ExecutionContext): WikiResult[B] =
     val futureB: Future[Either[Seq[WikiError], B]] = value.flatMap {
       case Right(a) => f(a).value
-      case Left(e) => Future.successful(Left(e))
+      case Left(es) => Future.successful(Left(es))
     }
     WikiResult(futureB)
 
@@ -86,11 +86,10 @@ case class WikiResult[A](value: Future[Either[Seq[WikiError], A]]):
   def zip[B](that: WikiResult[B])(using ExecutionContext): WikiResult[(A, B)] =
     def zipEithersAcc(a: Either[Seq[WikiError], A], b: Either[Seq[WikiError], B]): Either[Seq[WikiError], (A, B)] =
       (a, b) match
-        case (Left(af), Left(bf)) => Left(af ++ bf)
-        case _ => for {
-          ar <- a
-          br <- b
-        } yield (ar, br)
+        case (Right(l), Right(r)) => Right((l, r))
+        case (Left(l), Left(r)) => Left(l ++ r)
+        case (Left(e), _) => Left(e)
+        case (_, Left(e)) => Left(e)
 
     WikiResult(this.value.flatMap { thisEither =>
       that.value.map { thatEither =>
