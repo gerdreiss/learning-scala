@@ -43,5 +43,7 @@ def resilientGetAllPages(): Future[Seq[String]] =
       }
   }
 
-@main def run() =
-  resilientGetAllPages().onComplete(println)
+@main def runFuturePages() =
+  resilientGetAllPages()
+    .map(_.mkString("\n"))
+    .onComplete(println)
