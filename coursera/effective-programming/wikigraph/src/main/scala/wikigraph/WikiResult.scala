@@ -153,8 +153,9 @@ object WikiResult:
     val zero: Future[Either[Seq[WikiError], Seq[B]]] = Future(Right(List.empty))
     val result =
       as.foldLeft(zero) {
-        (acc, a) =>
-          acc.zipWith(f(a).value) {
+        (evtlErrorsOrBs, a) =>
+          val evtlErrorsOrB = f(a).value
+          evtlErrorsOrBs.zipWith(evtlErrorsOrB) {
             (errorsOrBs, errorsOrB) =>
               for {
                 bs <- errorsOrBs
