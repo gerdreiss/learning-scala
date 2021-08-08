@@ -11,4 +11,3 @@
   - Scala Advanced [Part 1 - The Scala Type System](https://www.udemy.com/scala-advanced-part-1-the-scala-type-system)
 - Coursera:
   - [Effective Programming in Scala](https://www.coursera.org/learn/effective-scala)
-  - [Programming Reactive Systems](https://www.coursera.org/learn/scala-akka-reactive)
