@@ -1,7 +1,7 @@
 import scala.concurrent.duration._
 
 import cats.effect._
-import cats.effect.std.{Semaphore, Supervisor}
+import cats.effect.std.{ Semaphore, Supervisor }
 
 object Regions extends IOApp.Simple {
 
